@@ -31,6 +31,10 @@ tasks.processResources {
     )
 }
 
+tasks.named<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar>("shadowJar") {
+    relocate("eu.okaeri", "pl.teksusik.experiencetome.libraries.eu.okaeri")
+}
+
 publishing {
     repositories {
         maven {
