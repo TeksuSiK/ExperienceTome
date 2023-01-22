@@ -2,6 +2,7 @@ plugins {
     id("java")
     id("java-library")
     id("maven-publish")
+    id("com.github.johnrengelman.shadow") version("7.1.2")
 }
 
 group = "pl.teksusik"
@@ -10,14 +11,18 @@ version = "0.1-SNAPSHOT"
 apply(plugin = "java")
 apply(plugin = "java-library")
 apply(plugin = "maven-publish")
+apply(plugin = "com.github.johnrengelman.shadow")
 
 repositories {
     mavenCentral()
     maven(url = "https://papermc.io/repo/repository/maven-public/")
+    maven(url = "https://storehouse.okaeri.eu/repository/maven-public/")
 }
 
 dependencies {
-    compileOnly("com.destroystokyo.paper:paper-api:1.13.2-R0.1-SNAPSHOT")
+    compileOnly("com.destroystokyo.paper:paper-api:1.14.4-R0.1-SNAPSHOT")
+    implementation("eu.okaeri:okaeri-configs-yaml-bukkit:5.0.0-beta.2")
+    implementation("eu.okaeri:okaeri-configs-serdes-bukkit:5.0.0-beta.2")
 }
 
 tasks.processResources {

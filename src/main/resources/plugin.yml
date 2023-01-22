@@ -2,3 +2,4 @@ name: ExperienceTome
 version: "${experienceTomeVersion}"
 main: pl.teksusik.experiencetome.ExperienceTomePlugin
 author: teksusik.
+api-version: 1.14
