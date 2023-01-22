@@ -7,6 +7,12 @@ import org.bukkit.Material;
 import java.util.List;
 
 public class ExperienceTomeConfiguration extends OkaeriConfig {
+    @Comment("Maximum amount of experience points that experience tome can hold. Visit https://minecraft.fandom.com/wiki/Experience#Leveling_up for reference")
+    private int maximumExperience = 1395;
+    @Comment("Message when experience tome is full")
+    private String experienceTomeFull = "Experience tome is full";
+    @Comment("Message when experience tome is empty")
+    private String experienceTomeEmpty = "Experience tome is empty";
     @Comment("Choose available material from: https://jd.papermc.io/paper/1.14/org/bukkit/Material.html")
     private Material tomeMaterial = Material.BOOK;
     @Comment("Display name for experience tome")
@@ -17,6 +23,18 @@ public class ExperienceTomeConfiguration extends OkaeriConfig {
     private List<Material> crafting = List.of(Material.AIR, Material.ENDER_EYE, Material.AIR,
             Material.ENDER_PEARL, Material.BOOK, Material.ENDER_PEARL,
             Material.AIR, Material.ENDER_EYE, Material.AIR);
+
+    public int getMaximumExperience() {
+        return maximumExperience;
+    }
+
+    public String getExperienceTomeFull() {
+        return experienceTomeFull;
+    }
+
+    public String getExperienceTomeEmpty() {
+        return experienceTomeEmpty;
+    }
 
     public Material getTomeMaterial() {
         return tomeMaterial;

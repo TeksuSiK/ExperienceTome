@@ -57,21 +57,32 @@ public class ExperienceDepositListener implements Listener {
         }
 
         int storedExperience = data.get(key, PersistentDataType.INTEGER);
+        if (storedExperience >= this.configuration.getMaximumExperience()) {
+            player.sendMessage(this.configuration.getExperienceTomeFull());
+            return;
+        }
+
         int playerExperience = ExperienceHelper.getExperience(player);
 
         ExperienceDepositEvent depositEvent = new ExperienceDepositEvent(player, storedExperience, playerExperience);
         Bukkit.getServer().getPluginManager().callEvent(depositEvent);
-
         if (depositEvent.isCancelled()) {
             return;
         }
 
+        int experienceLeftInPlayer = 0;
+
         int newExperience = storedExperience + playerExperience;
+        if (newExperience > this.configuration.getMaximumExperience()) {
+            experienceLeftInPlayer = newExperience - this.configuration.getMaximumExperience();
+            newExperience = this.configuration.getMaximumExperience();
+        }
 
         data.set(key, PersistentDataType.INTEGER, newExperience);
         item.setItemMeta(meta);
 
         player.setLevel(0);
         player.setExp(0);
+        player.giveExp(experienceLeftInPlayer);
     }
 }

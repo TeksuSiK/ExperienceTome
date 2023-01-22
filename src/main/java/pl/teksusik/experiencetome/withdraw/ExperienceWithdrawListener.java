@@ -56,6 +56,10 @@ public class ExperienceWithdrawListener implements Listener {
         }
 
         int storedExperience = data.get(key, PersistentDataType.INTEGER);
+        if (storedExperience <= 0) {
+            player.sendMessage(this.configuration.getExperienceTomeEmpty());
+            return;
+        }
 
         ExperienceWithdrawEvent withdrawEvent = new ExperienceWithdrawEvent(player, storedExperience);
         Bukkit.getServer().getPluginManager().callEvent(withdrawEvent);
