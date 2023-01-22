@@ -1,5 +1,6 @@
-package pl.teksusik.experiencetome;
+package pl.teksusik.experiencetome.withdraw;
 
+import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -11,6 +12,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
+import pl.teksusik.experiencetome.ExperienceTomeConfiguration;
 
 public class ExperienceWithdrawListener implements Listener {
     private final ExperienceTomeConfiguration configuration;
@@ -54,6 +56,14 @@ public class ExperienceWithdrawListener implements Listener {
         }
 
         int storedExperience = data.get(key, PersistentDataType.INTEGER);
+
+        ExperienceWithdrawEvent withdrawEvent = new ExperienceWithdrawEvent(player, storedExperience);
+        Bukkit.getServer().getPluginManager().callEvent(withdrawEvent);
+
+        if (withdrawEvent.isCancelled()) {
+            return;
+        }
+
         data.set(key, PersistentDataType.INTEGER, 0);
         item.setItemMeta(meta);
 

@@ -1,5 +1,6 @@
-package pl.teksusik.experiencetome;
+package pl.teksusik.experiencetome.deposit;
 
+import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -11,6 +12,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
+import pl.teksusik.experiencetome.ExperienceHelper;
+import pl.teksusik.experiencetome.ExperienceTomeConfiguration;
 
 public class ExperienceDepositListener implements Listener {
     private final ExperienceTomeConfiguration configuration;
@@ -55,6 +58,13 @@ public class ExperienceDepositListener implements Listener {
 
         int storedExperience = data.get(key, PersistentDataType.INTEGER);
         int playerExperience = ExperienceHelper.getExperience(player);
+
+        ExperienceDepositEvent depositEvent = new ExperienceDepositEvent(player, storedExperience, playerExperience);
+        Bukkit.getServer().getPluginManager().callEvent(depositEvent);
+
+        if (depositEvent.isCancelled()) {
+            return;
+        }
 
         int newExperience = storedExperience + playerExperience;
 

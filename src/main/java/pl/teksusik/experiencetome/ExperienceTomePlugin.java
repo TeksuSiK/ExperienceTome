@@ -6,6 +6,8 @@ import eu.okaeri.configs.yaml.bukkit.serdes.SerdesBukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import pl.teksusik.experiencetome.deposit.ExperienceDepositListener;
+import pl.teksusik.experiencetome.withdraw.ExperienceWithdrawListener;
 
 import java.io.File;
 
