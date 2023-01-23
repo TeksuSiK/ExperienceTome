@@ -1,6 +1,7 @@
 package pl.teksusik.experiencetome.withdraw;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -60,7 +61,7 @@ public class ExperienceWithdrawListener implements Listener {
 
         int storedExperience = data.get(key, PersistentDataType.INTEGER);
         if (storedExperience <= 0) {
-            player.sendMessage(this.configuration.getExperienceTomeEmpty());
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', this.configuration.getExperienceTomeEmpty()));
             return;
         }
 
@@ -75,6 +76,7 @@ public class ExperienceWithdrawListener implements Listener {
 
         List<String> lore = new ArrayList<>(this.configuration.getLore());
         lore.replaceAll(line -> line
+                .replace('&', '§')
                 .replace("{STORED_EXPERIENCE}", "0")
                 .replace("{MAXIMUM_EXPERIENCE}", String.valueOf(this.configuration.getMaximumExperience())));
 

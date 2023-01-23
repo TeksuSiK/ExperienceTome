@@ -14,17 +14,17 @@ public class ExperienceTomeConfiguration extends OkaeriConfig {
     @Positive
     private int maximumExperience = 1395;
     @Comment("Message when experience tome is full")
-    private String experienceTomeFull = "Experience tome is full";
+    private String experienceTomeFull = "&cExperience tome is full";
     @Comment("Message when experience tome is empty")
-    private String experienceTomeEmpty = "Experience tome is empty";
+    private String experienceTomeEmpty = "&cExperience tome is empty";
     @Comment("Choose available material from: https://jd.papermc.io/paper/1.14/org/bukkit/Material.html")
     private Material tomeMaterial = Material.BOOK;
     @Comment("Display name for experience tome")
     @Nullable
-    private String displayName = "Experience Tome";
+    private String displayName = "&aExperience Tome";
     @Comment("Available placeholders: {STORED_EXPERIENCE}, {MAXIMUM_EXPERIENCE}")
     @Nullable
-    private List<String> lore = List.of("Use to deposit experience in tome", "Use while sneaking to withdrawn experience", "{STORED_EXPERIENCE}/{MAXIMUM_EXPERIENCE}");
+    private List<String> lore = List.of("&2Use to deposit experience in tome", "&2Use while sneaking to withdrawn experience", "&3{STORED_EXPERIENCE}/{MAXIMUM_EXPERIENCE}");
     @Comment("Each line represents slot in crafting table from left to right. For empty slot use AIR. Size list must be equals to 9")
     @Size(min = 9, max = 9)
     private List<Material> crafting = List.of(Material.AIR, Material.ENDER_EYE, Material.AIR,

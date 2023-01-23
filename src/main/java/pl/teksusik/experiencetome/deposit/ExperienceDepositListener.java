@@ -1,6 +1,7 @@
 package pl.teksusik.experiencetome.deposit;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -61,7 +62,7 @@ public class ExperienceDepositListener implements Listener {
 
         int storedExperience = data.get(key, PersistentDataType.INTEGER);
         if (storedExperience >= this.configuration.getMaximumExperience()) {
-            player.sendMessage(this.configuration.getExperienceTomeFull());
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', this.configuration.getExperienceTomeFull()));
             return;
         }
 
@@ -86,6 +87,7 @@ public class ExperienceDepositListener implements Listener {
         List<String> lore = new ArrayList<>(this.configuration.getLore());
         int finalNewExperience = newExperience;
         lore.replaceAll(line -> line
+                .replace('&', '§')
                 .replace("{STORED_EXPERIENCE}", String.valueOf(finalNewExperience))
                 .replace("{MAXIMUM_EXPERIENCE}", String.valueOf(this.configuration.getMaximumExperience())));
 

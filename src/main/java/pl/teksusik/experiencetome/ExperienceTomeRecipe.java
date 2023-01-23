@@ -1,5 +1,6 @@
 package pl.teksusik.experiencetome;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -33,11 +34,12 @@ public class ExperienceTomeRecipe {
         ItemMeta meta = item.getItemMeta();
 
         if (!this.displayName.isEmpty()) {
-            meta.setDisplayName(this.displayName);
+            meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', this.displayName));
         }
 
         if (!this.lore.isEmpty()) {
             this.lore.replaceAll(line -> line
+                    .replace('&', '§')
                     .replace("{STORED_EXPERIENCE}", "0")
                     .replace("{MAXIMUM_EXPERIENCE}", String.valueOf(maximumExperience)));
             meta.setLore(this.lore);
