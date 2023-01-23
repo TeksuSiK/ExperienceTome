@@ -4,6 +4,7 @@ import eu.okaeri.configs.ConfigManager;
 import eu.okaeri.configs.validator.okaeri.OkaeriValidator;
 import eu.okaeri.configs.yaml.bukkit.YamlBukkitConfigurer;
 import eu.okaeri.configs.yaml.bukkit.serdes.SerdesBukkit;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.NamespacedKey;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -34,6 +35,8 @@ public class ExperienceTomePlugin extends JavaPlugin {
 
         ExperienceTomeRecipe recipe = new ExperienceTomeRecipe(this.key, this.configuration.getTomeMaterial(), this.configuration.getDisplayName(), this.configuration.getLore(), this.configuration.getMaximumExperience(), this.configuration.getCrafting());
         this.getServer().addRecipe(recipe.toShapedRecipe());
+
+        Metrics metrics = new Metrics(this, 17509);
     }
 
     @Override

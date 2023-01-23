@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "pl.teksusik"
-version = "1.0"
+version = "1.1.0"
 
 apply(plugin = "java")
 apply(plugin = "java-library")
@@ -26,6 +26,8 @@ dependencies {
     implementation("eu.okaeri:okaeri-configs-yaml-bukkit:$okaeriConfigs")
     implementation("eu.okaeri:okaeri-configs-serdes-bukkit:$okaeriConfigs")
     implementation("eu.okaeri:okaeri-configs-validator-okaeri:$okaeriConfigs")
+
+    implementation("org.bstats:bstats-bukkit:3.0.0")
 }
 
 tasks.processResources {
@@ -36,6 +38,7 @@ tasks.processResources {
 
 tasks.named<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar>("shadowJar") {
     relocate("eu.okaeri", "pl.teksusik.experiencetome.libraries.eu.okaeri")
+    relocate("org.bstats", "pl.teksusik.experiencetome.libraries.org.bstats")
 }
 
 publishing {
