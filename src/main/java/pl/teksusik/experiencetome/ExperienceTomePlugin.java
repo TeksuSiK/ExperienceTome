@@ -1,6 +1,7 @@
 package pl.teksusik.experiencetome;
 
 import eu.okaeri.configs.ConfigManager;
+import eu.okaeri.configs.validator.okaeri.OkaeriValidator;
 import eu.okaeri.configs.yaml.bukkit.YamlBukkitConfigurer;
 import eu.okaeri.configs.yaml.bukkit.serdes.SerdesBukkit;
 import org.bukkit.NamespacedKey;
@@ -18,7 +19,7 @@ public class ExperienceTomePlugin extends JavaPlugin {
     @Override
     public void onEnable() {
         this.configuration = ConfigManager.create(ExperienceTomeConfiguration.class, (it) -> {
-            it.withConfigurer(new YamlBukkitConfigurer(), new SerdesBukkit());
+            it.withConfigurer(new OkaeriValidator(new YamlBukkitConfigurer(), true), new SerdesBukkit());
             it.withBindFile(new File(this.getDataFolder(), "config.yml"));
             it.withRemoveOrphans(true);
             it.saveDefaults();

@@ -21,8 +21,11 @@ repositories {
 
 dependencies {
     compileOnly("com.destroystokyo.paper:paper-api:1.14.4-R0.1-SNAPSHOT")
-    implementation("eu.okaeri:okaeri-configs-yaml-bukkit:5.0.0-beta.2")
-    implementation("eu.okaeri:okaeri-configs-serdes-bukkit:5.0.0-beta.2")
+
+    val okaeriConfigs = "5.0.0-beta.2"
+    implementation("eu.okaeri:okaeri-configs-yaml-bukkit:$okaeriConfigs")
+    implementation("eu.okaeri:okaeri-configs-serdes-bukkit:$okaeriConfigs")
+    implementation("eu.okaeri:okaeri-configs-validator-okaeri:$okaeriConfigs")
 }
 
 tasks.processResources {
