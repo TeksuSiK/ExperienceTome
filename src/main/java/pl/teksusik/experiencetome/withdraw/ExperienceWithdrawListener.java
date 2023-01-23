@@ -14,6 +14,9 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import pl.teksusik.experiencetome.ExperienceTomeConfiguration;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ExperienceWithdrawListener implements Listener {
     private final ExperienceTomeConfiguration configuration;
     private final NamespacedKey key;
@@ -69,6 +72,13 @@ public class ExperienceWithdrawListener implements Listener {
         }
 
         data.set(key, PersistentDataType.INTEGER, 0);
+
+        List<String> lore = new ArrayList<>(this.configuration.getLore());
+        lore.replaceAll(line -> line
+                .replace("{STORED_EXPERIENCE}", "0")
+                .replace("{MAXIMUM_EXPERIENCE}", String.valueOf(this.configuration.getMaximumExperience())));
+
+        meta.setLore(lore);
         item.setItemMeta(meta);
 
         player.giveExp(storedExperience);

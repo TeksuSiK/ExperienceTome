@@ -22,9 +22,9 @@ public class ExperienceTomeConfiguration extends OkaeriConfig {
     @Comment("Display name for experience tome")
     @Nullable
     private String displayName = "Experience Tome";
-    @Comment("Available placeholders: -")
+    @Comment("Available placeholders: {STORED_EXPERIENCE}, {MAXIMUM_EXPERIENCE}")
     @Nullable
-    private List<String> lore = List.of("Use to deposit experience in tome", "Use while sneaking to withdrawn experience");
+    private List<String> lore = List.of("Use to deposit experience in tome", "Use while sneaking to withdrawn experience", "{STORED_EXPERIENCE}/{MAXIMUM_EXPERIENCE}");
     @Comment("Each line represents slot in crafting table from left to right. For empty slot use AIR. Size list must be equals to 9")
     @Size(min = 9, max = 9)
     private List<Material> crafting = List.of(Material.AIR, Material.ENDER_EYE, Material.AIR,

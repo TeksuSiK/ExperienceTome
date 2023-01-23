@@ -8,6 +8,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ExperienceTomeRecipe {
@@ -15,13 +16,15 @@ public class ExperienceTomeRecipe {
     private final Material material;
     private final String displayName;
     private final List<String> lore;
+    private final int maximumExperience;
     private final List<Material> crafting;
 
-    public ExperienceTomeRecipe(NamespacedKey key, Material material, String displayName, List<String> lore, List<Material> crafting) {
+    public ExperienceTomeRecipe(NamespacedKey key, Material material, String displayName, List<String> lore, int maximumExperience, List<Material> crafting) {
         this.key = key;
         this.material = material;
         this.displayName = displayName;
-        this.lore = lore;
+        this.lore = new ArrayList<>(lore);
+        this.maximumExperience = maximumExperience;
         this.crafting = crafting;
     }
 
@@ -34,6 +37,9 @@ public class ExperienceTomeRecipe {
         }
 
         if (!this.lore.isEmpty()) {
+            this.lore.replaceAll(line -> line
+                    .replace("{STORED_EXPERIENCE}", "0")
+                    .replace("{MAXIMUM_EXPERIENCE}", String.valueOf(maximumExperience)));
             meta.setLore(this.lore);
         }
 

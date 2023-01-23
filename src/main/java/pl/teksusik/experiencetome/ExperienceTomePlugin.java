@@ -32,7 +32,7 @@ public class ExperienceTomePlugin extends JavaPlugin {
         pluginManager.registerEvents(new ExperienceDepositListener(this.configuration, this.key), this);
         pluginManager.registerEvents(new ExperienceWithdrawListener(this.configuration, this.key), this);
 
-        ExperienceTomeRecipe recipe = new ExperienceTomeRecipe(this.key, this.configuration.getTomeMaterial(), this.configuration.getDisplayName(), this.configuration.getLore(), this.configuration.getCrafting());
+        ExperienceTomeRecipe recipe = new ExperienceTomeRecipe(this.key, this.configuration.getTomeMaterial(), this.configuration.getDisplayName(), this.configuration.getLore(), this.configuration.getMaximumExperience(), this.configuration.getCrafting());
         this.getServer().addRecipe(recipe.toShapedRecipe());
     }
 

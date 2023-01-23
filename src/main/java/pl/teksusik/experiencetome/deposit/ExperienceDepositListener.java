@@ -15,6 +15,9 @@ import org.bukkit.persistence.PersistentDataType;
 import pl.teksusik.experiencetome.ExperienceHelper;
 import pl.teksusik.experiencetome.ExperienceTomeConfiguration;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ExperienceDepositListener implements Listener {
     private final ExperienceTomeConfiguration configuration;
     private final NamespacedKey key;
@@ -79,6 +82,14 @@ public class ExperienceDepositListener implements Listener {
         }
 
         data.set(key, PersistentDataType.INTEGER, newExperience);
+
+        List<String> lore = new ArrayList<>(this.configuration.getLore());
+        int finalNewExperience = newExperience;
+        lore.replaceAll(line -> line
+                .replace("{STORED_EXPERIENCE}", String.valueOf(finalNewExperience))
+                .replace("{MAXIMUM_EXPERIENCE}", String.valueOf(this.configuration.getMaximumExperience())));
+
+        meta.setLore(lore);
         item.setItemMeta(meta);
 
         player.setLevel(0);
