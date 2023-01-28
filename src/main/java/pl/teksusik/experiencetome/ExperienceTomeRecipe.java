@@ -15,14 +15,16 @@ import java.util.List;
 public class ExperienceTomeRecipe {
     private final NamespacedKey key;
     private final Material material;
+    private final int customModelData;
     private final String displayName;
     private final List<String> lore;
     private final int maximumExperience;
     private final List<Material> crafting;
 
-    public ExperienceTomeRecipe(NamespacedKey key, Material material, String displayName, List<String> lore, int maximumExperience, List<Material> crafting) {
+    public ExperienceTomeRecipe(NamespacedKey key, Material material, int customModelData, String displayName, List<String> lore, int maximumExperience, List<Material> crafting) {
         this.key = key;
         this.material = material;
+        this.customModelData = customModelData;
         this.displayName = displayName;
         this.lore = new ArrayList<>(lore);
         this.maximumExperience = maximumExperience;
@@ -44,6 +46,8 @@ public class ExperienceTomeRecipe {
                     .replace("{MAXIMUM_EXPERIENCE}", String.valueOf(maximumExperience)));
             meta.setLore(this.lore);
         }
+
+        meta.setCustomModelData(this.customModelData);
 
         PersistentDataContainer data = meta.getPersistentDataContainer();
         data.set(this.key, PersistentDataType.INTEGER, 0);

@@ -19,6 +19,9 @@ public class ExperienceTomeConfiguration extends OkaeriConfig {
     private String experienceTomeEmpty = "&cExperience tome is empty";
     @Comment("Choose available material from: https://jd.papermc.io/paper/1.14/org/bukkit/Material.html")
     private Material tomeMaterial = Material.BOOK;
+    @Comment("Choose custom model data if you want custom model for tome item")
+    @Nullable
+    private int customModelData = 1;
     @Comment("Display name for experience tome")
     @Nullable
     private String displayName = "&aExperience Tome";
@@ -45,6 +48,10 @@ public class ExperienceTomeConfiguration extends OkaeriConfig {
 
     public Material getTomeMaterial() {
         return tomeMaterial;
+    }
+
+    public int getCustomModelData() {
+        return customModelData;
     }
 
     public String getDisplayName() {
