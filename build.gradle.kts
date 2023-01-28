@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "pl.teksusik"
-version = "1.1.0"
+version = "1.2.0-SNAPSHOT"
 
 apply(plugin = "java")
 apply(plugin = "java-library")
