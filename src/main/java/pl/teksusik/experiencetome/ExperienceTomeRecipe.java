@@ -1,6 +1,5 @@
 package pl.teksusik.experiencetome;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -8,46 +7,43 @@ import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
+import pl.teksusik.experiencetome.i18n.BI18n;
+import pl.teksusik.experiencetome.i18n.ExperienceTomeLocaleConfiguration;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
+import java.util.Locale;
 
 public class ExperienceTomeRecipe {
+    private final ExperienceTomeConfiguration configuration;
+    private final ExperienceTomeLocaleConfiguration localeConfiguration;
+    private final BI18n i18n;
     private final NamespacedKey key;
-    private final Material material;
-    private final int customModelData;
-    private final String displayName;
-    private final List<String> lore;
-    private final int maximumExperience;
-    private final List<Material> crafting;
 
-    public ExperienceTomeRecipe(NamespacedKey key, Material material, int customModelData, String displayName, List<String> lore, int maximumExperience, List<Material> crafting) {
+    public ExperienceTomeRecipe(ExperienceTomeConfiguration configuration, ExperienceTomeLocaleConfiguration localeConfiguration, BI18n i18n, NamespacedKey key) {
+        this.configuration = configuration;
+        this.localeConfiguration = localeConfiguration;
+        this.i18n = i18n;
         this.key = key;
-        this.material = material;
-        this.customModelData = customModelData;
-        this.displayName = displayName;
-        this.lore = new ArrayList<>(lore);
-        this.maximumExperience = maximumExperience;
-        this.crafting = crafting;
     }
 
     public ShapedRecipe toShapedRecipe() {
-        ItemStack item = new ItemStack(this.material);
+        ItemStack item = new ItemStack(this.configuration.getTomeMaterial());
         ItemMeta meta = item.getItemMeta();
 
-        if (!this.displayName.isEmpty()) {
-            meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', this.displayName));
+        if (!this.localeConfiguration.getDisplayName().isEmpty()) {
+            meta.setDisplayName(this.i18n.get(this.localeConfiguration.getDisplayName())
+                    .apply(Locale.getDefault()));
         }
 
-        if (!this.lore.isEmpty()) {
-            this.lore.replaceAll(line -> line
-                    .replace('&', '§')
-                    .replace("{STORED_EXPERIENCE}", "0")
-                    .replace("{MAXIMUM_EXPERIENCE}", String.valueOf(maximumExperience)));
-            meta.setLore(this.lore);
+        if (!this.localeConfiguration.getLore().isEmpty()) {
+            String lore = this.i18n.get(this.localeConfiguration.getLore())
+                    .with("stored_experience", 0)
+                    .with("maximum_experience", this.configuration.getMaximumExperience())
+                    .apply(Locale.getDefault());
+            meta.setLore(Arrays.stream(lore.split("\n")).toList());
         }
 
-        meta.setCustomModelData(this.customModelData);
+        meta.setCustomModelData(this.configuration.getCustomModelData());
 
         PersistentDataContainer data = meta.getPersistentDataContainer();
         data.set(this.key, PersistentDataType.INTEGER, 0);
@@ -58,7 +54,7 @@ public class ExperienceTomeRecipe {
         recipe.shape("ABC", "DEF", "GHI");
 
         char shape = 'A';
-        for (Material craftingMaterial : this.crafting) {
+        for (Material craftingMaterial : this.configuration.getCrafting()) {
             recipe.setIngredient(shape, craftingMaterial);
             shape += 1;
         }

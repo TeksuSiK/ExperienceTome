@@ -1,7 +1,6 @@
 package pl.teksusik.experiencetome.deposit;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -15,16 +14,22 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import pl.teksusik.experiencetome.ExperienceHelper;
 import pl.teksusik.experiencetome.ExperienceTomeConfiguration;
+import pl.teksusik.experiencetome.i18n.BI18n;
+import pl.teksusik.experiencetome.i18n.ExperienceTomeLocaleConfiguration;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
+import java.util.Locale;
 
 public class ExperienceDepositListener implements Listener {
     private final ExperienceTomeConfiguration configuration;
+    private final ExperienceTomeLocaleConfiguration localeConfiguration;
+    private final BI18n i18n;
     private final NamespacedKey key;
 
-    public ExperienceDepositListener(ExperienceTomeConfiguration configuration, NamespacedKey key) {
+    public ExperienceDepositListener(ExperienceTomeConfiguration configuration, ExperienceTomeLocaleConfiguration localeConfiguration, BI18n i18n, NamespacedKey key) {
         this.configuration = configuration;
+        this.localeConfiguration = localeConfiguration;
+        this.i18n = i18n;
         this.key = key;
     }
 
@@ -62,7 +67,8 @@ public class ExperienceDepositListener implements Listener {
 
         int storedExperience = data.get(key, PersistentDataType.INTEGER);
         if (storedExperience >= this.configuration.getMaximumExperience()) {
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', this.configuration.getExperienceTomeFull()));
+            this.i18n.get(this.localeConfiguration.getExperienceTomeFull())
+                    .sendTo(player);
             return;
         }
 
@@ -84,14 +90,13 @@ public class ExperienceDepositListener implements Listener {
 
         data.set(key, PersistentDataType.INTEGER, newExperience);
 
-        List<String> lore = new ArrayList<>(this.configuration.getLore());
         int finalNewExperience = newExperience;
-        lore.replaceAll(line -> line
-                .replace('&', '§')
-                .replace("{STORED_EXPERIENCE}", String.valueOf(finalNewExperience))
-                .replace("{MAXIMUM_EXPERIENCE}", String.valueOf(this.configuration.getMaximumExperience())));
+        String lore = this.i18n.get(this.localeConfiguration.getLore())
+                .with("stored_experience", 0)
+                .with("maximum_experience", this.configuration.getMaximumExperience())
+                .apply(Locale.getDefault());
 
-        meta.setLore(lore);
+        meta.setLore(Arrays.stream(lore.split("\n")).toList());
         item.setItemMeta(meta);
 
         player.setLevel(0);
