@@ -90,9 +90,8 @@ public class ExperienceDepositListener implements Listener {
 
         data.set(key, PersistentDataType.INTEGER, newExperience);
 
-        int finalNewExperience = newExperience;
         String lore = this.i18n.get(this.localeConfiguration.getLore())
-                .with("stored_experience", 0)
+                .with("stored_experience", newExperience)
                 .with("maximum_experience", this.configuration.getMaximumExperience())
                 .apply(Locale.getDefault());
 
