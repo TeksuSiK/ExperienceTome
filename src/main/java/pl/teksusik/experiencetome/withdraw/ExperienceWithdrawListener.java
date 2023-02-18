@@ -63,6 +63,12 @@ public class ExperienceWithdrawListener implements Listener {
             return;
         }
 
+        if (item.getAmount() != 1) {
+            this.i18n.get(this.localeConfiguration.getMultipleExperienceTomes())
+                    .sendTo(player);
+            return;
+        }
+
         int storedExperience = data.get(key, PersistentDataType.INTEGER);
         if (storedExperience <= 0) {
             this.i18n.get(this.localeConfiguration.getExperienceTomeEmpty())

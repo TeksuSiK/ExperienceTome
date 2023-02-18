@@ -64,6 +64,12 @@ public class ExperienceDepositListener implements Listener {
             return;
         }
 
+        if (item.getAmount() != 1) {
+            this.i18n.get(this.localeConfiguration.getMultipleExperienceTomes())
+                    .sendTo(player);
+            return;
+        }
+
         int storedExperience = data.get(key, PersistentDataType.INTEGER);
         if (storedExperience >= this.configuration.getMaximumExperience()) {
             this.i18n.get(this.localeConfiguration.getExperienceTomeFull())

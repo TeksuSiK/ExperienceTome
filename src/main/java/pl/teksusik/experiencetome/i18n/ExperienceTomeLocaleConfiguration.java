@@ -9,6 +9,8 @@ public class ExperienceTomeLocaleConfiguration extends LocaleConfig {
     private String experienceTomeFull = "<red>Experience tome is full";
     @Comment("Message when experience tome is empty")
     private String experienceTomeEmpty = "<red>Experience tome is empty";
+    @Comment("Message when player tries to interact with more than one tome")
+    private String multipleExperienceTomes = "<red>You can only use one experience tome at a time";
     @Comment("Display name for experience tome")
     @Nullable
     private String displayName = "<green>Experience Tome";
@@ -24,6 +26,10 @@ public class ExperienceTomeLocaleConfiguration extends LocaleConfig {
 
     public String getExperienceTomeEmpty() {
         return experienceTomeEmpty;
+    }
+
+    public String getMultipleExperienceTomes() {
+        return multipleExperienceTomes;
     }
 
     public String getDisplayName() {
