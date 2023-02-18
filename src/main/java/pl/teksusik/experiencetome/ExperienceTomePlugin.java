@@ -14,6 +14,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import pl.teksusik.experiencetome.deposit.ExperienceDepositListener;
 import pl.teksusik.experiencetome.i18n.BI18n;
 import pl.teksusik.experiencetome.i18n.ExperienceTomeLocaleConfiguration;
+import pl.teksusik.experiencetome.i18n.I18nListener;
 import pl.teksusik.experiencetome.i18n.LocaleProviderType;
 import pl.teksusik.experiencetome.i18n.PlayerLocaleProvider;
 import pl.teksusik.experiencetome.withdraw.ExperienceWithdrawListener;
@@ -67,14 +68,13 @@ public class ExperienceTomePlugin extends JavaPlugin {
                 .filter(Files::isReadable)
                 .filter(Files::isRegularFile)) {
             files.forEach(path -> {
-                Locale locale = Locale.forLanguageTag(removeExtension(path.getFileName().toString()));
+                Locale locale = Locale.forLanguageTag(removeExtension(path.getFileName().toString().replace("_", "-")));
                 ExperienceTomeLocaleConfiguration localeConfiguration = ConfigManager.create(ExperienceTomeLocaleConfiguration.class, okaeriConfig -> {
                     okaeriConfig.withConfigurer(new YamlBukkitConfigurer());
                     okaeriConfig.withBindFile(path);
                     okaeriConfig.saveDefaults();
                     okaeriConfig.load();
                 });
-
                 this.i18n.registerConfig(locale, localeConfiguration);
             });
         } catch (IOException exception) {
@@ -95,6 +95,7 @@ public class ExperienceTomePlugin extends JavaPlugin {
         PluginManager pluginManager = this.getServer().getPluginManager();
         pluginManager.registerEvents(new ExperienceDepositListener(this.configuration, this.localeConfiguration, this.i18n, this.key), this);
         pluginManager.registerEvents(new ExperienceWithdrawListener(this.configuration, this.localeConfiguration, this.i18n, this.key), this);
+        pluginManager.registerEvents(new I18nListener(this.configuration, this.localeConfiguration, this.i18n, this.key), this);
 
         ExperienceTomeRecipe recipe = new ExperienceTomeRecipe(this.configuration, this.localeConfiguration, this.i18n, this.key);
         this.getServer().addRecipe(recipe.toShapedRecipe());

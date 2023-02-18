@@ -14,8 +14,8 @@ public class ExperienceTomeLocaleConfiguration extends LocaleConfig {
     private String displayName = "<green>Experience Tome";
     @Comment("Available placeholders: {stored_experience}, {maximum_experience}")
     @Nullable
-    private String lore = "<dark_green>Use to deposit experience in tome<reset>" +
-            "\n<dark_green>Use while sneaking to withdrawn experience<reset>" +
+    private String lore = "<dark_green>Use to withdraw experience from tome<reset>" +
+            "\n<dark_green>Use while sneaking to deposit experience<reset>" +
             "\n<dark_aqua>{stored_experience}/{maximum_experience}";
 
     public String getExperienceTomeFull() {

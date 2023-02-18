@@ -6,7 +6,6 @@ import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.command.CommandSender;
 
 import java.util.LinkedHashMap;
-import java.util.Locale;
 import java.util.Map;
 
 public class BukkitMessageDispatcher implements MessageDispatcher<AdventureMessage> {
@@ -47,8 +46,8 @@ public class BukkitMessageDispatcher implements MessageDispatcher<AdventureMessa
         return this;
     }
 
-    public String apply(Locale locale) {
-        AdventureMessage message = this.i18n.get(locale, this.key);
+    public String apply(Object receiver) {
+        AdventureMessage message = this.i18n.get(receiver, this.key);
         this.fields.forEach(message::with);
 
         if (message.raw().isEmpty()) {

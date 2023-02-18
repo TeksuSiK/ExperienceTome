@@ -17,7 +17,6 @@ import pl.teksusik.experiencetome.i18n.BI18n;
 import pl.teksusik.experiencetome.i18n.ExperienceTomeLocaleConfiguration;
 
 import java.util.Arrays;
-import java.util.Locale;
 
 public class ExperienceWithdrawListener implements Listener {
     private final ExperienceTomeConfiguration configuration;
@@ -33,7 +32,7 @@ public class ExperienceWithdrawListener implements Listener {
     }
 
     @EventHandler
-    public void onExperienceDeposit(PlayerInteractEvent event) {
+    public void onExperienceWithdraw(PlayerInteractEvent event) {
         Player player = event.getPlayer();
 
         if (player.isSneaking()) {
@@ -80,10 +79,16 @@ public class ExperienceWithdrawListener implements Listener {
 
         data.set(key, PersistentDataType.INTEGER, 0);
 
+        String displayName = this.i18n.get(this.localeConfiguration.getDisplayName())
+                .apply(player);
+        if (!meta.getDisplayName().equals(displayName)) {
+            meta.setDisplayName(displayName);
+        }
+
         String lore = this.i18n.get(this.localeConfiguration.getLore())
                 .with("stored_experience", 0)
                 .with("maximum_experience", this.configuration.getMaximumExperience())
-                .apply(Locale.getDefault());
+                .apply(player);
 
         meta.setLore(Arrays.stream(lore.split("\n")).toList());
         item.setItemMeta(meta);
