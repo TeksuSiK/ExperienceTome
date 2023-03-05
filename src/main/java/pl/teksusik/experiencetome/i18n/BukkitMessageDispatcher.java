@@ -1,6 +1,6 @@
 package pl.teksusik.experiencetome.i18n;
 
-import eu.okaeri.i18n.core.minecraft.adventure.AdventureMessage;
+import eu.okaeri.i18n.minecraft.adventure.AdventureMessage;
 import eu.okaeri.i18n.message.MessageDispatcher;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.command.CommandSender;

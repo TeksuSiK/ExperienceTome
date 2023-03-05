@@ -2,7 +2,7 @@ plugins {
     id("java")
     id("java-library")
     id("maven-publish")
-    id("com.github.johnrengelman.shadow") version("7.1.2")
+    id("com.github.johnrengelman.shadow") version("8.1.0")
 }
 
 group = "pl.teksusik"
@@ -22,12 +22,12 @@ repositories {
 dependencies {
     compileOnly("com.destroystokyo.paper:paper-api:1.14.4-R0.1-SNAPSHOT")
 
-    val configs = "5.0.0-beta.2"
+    val configs = "5.0.0-beta.4"
     implementation("eu.okaeri:okaeri-configs-yaml-bukkit:$configs")
     implementation("eu.okaeri:okaeri-configs-serdes-bukkit:$configs")
     implementation("eu.okaeri:okaeri-configs-validator-okaeri:$configs")
 
-    val i18n = "5.0.1-beta.6";
+    val i18n = "5.0.1-beta.10";
     implementation("eu.okaeri:okaeri-i18n-configs:$i18n")
     implementation("eu.okaeri:okaeri-i18n-minecraft-adventure:$i18n")
 

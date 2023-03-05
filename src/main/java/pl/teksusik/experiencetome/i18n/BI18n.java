@@ -1,7 +1,8 @@
 package pl.teksusik.experiencetome.i18n;
 
 import eu.okaeri.i18n.configs.extended.CustomMEOCI18n;
-import eu.okaeri.i18n.core.minecraft.adventure.AdventureMessage;
+
+import eu.okaeri.i18n.minecraft.adventure.AdventureMessage;
 import eu.okaeri.placeholders.Placeholders;
 import eu.okaeri.placeholders.message.CompiledMessage;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
